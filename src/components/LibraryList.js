@@ -1,6 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ListView } from 'react-native';
+import ListItem from './ListItem';
 
 class LibraryList extends React.Component {
   componentWillMount() {
@@ -9,6 +10,11 @@ class LibraryList extends React.Component {
     });
     this.dataSource = source.cloneWithRows(this.props.libraries);
   }
+
+  renderRow() {
+    return <ListItem library={library} />;
+  }
+
   render() {
     return <ListView dataSource={this.dataSource} renderRow={this.renderRow} />;
   }
