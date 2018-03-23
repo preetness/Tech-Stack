@@ -1,22 +1,21 @@
-import React from 'react';
+import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { ListView } from 'react-native';
+import { FlatList } from 'react-native';
 import ListItem from './ListItem';
 
-class LibraryList extends React.Component {
-  componentWillMount() {
-    const source = ListView.DataSource({
-      rowHasChanged: (rowOne, rowTwo) => rowOne !== rowTwo,
-    });
-    this.dataSource = source.cloneWithRows(this.props.libraries);
-  }
-
-  renderRow() {
-    return <ListItem library={library} />;
+class LibraryList extends Component {
+  renderItem({ item }) {
+    return <ListItem item={item} />;
   }
 
   render() {
-    return <ListView dataSource={this.dataSource} renderRow={this.renderRow} />;
+    return (
+      <FlatList
+        data={this.props.libraries}
+        renderItem={this.renderItem}
+        keyExtractor={item => item.id.toString()}
+      />
+    );
   }
 }
 
